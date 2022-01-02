@@ -61,17 +61,29 @@ scrollLinks.forEach(function (link) {
     e.preventDefault();
     // scroll to specific spot
     const id = e.currentTarget.getAttribute("href").slice(1);
-    //The slice() method extracts a section of a string and returns it as a new string, without modifying the original string.
+    // The slice() method extracts a section of a string and returns it as a new string,
+    // without modifying the original string.
     // alert(`${id}`); //testing
+    // navigate to specific spot
     const element = document.getElementById(id);
-    // console.log(element);
-    const position = element.offsetTop;
-    // console.log(position);
+    const navHeight = navbar.getBoundingClientRect().height;
+    const containerHeight = linksContainer.getBoundingClientRect().height;
+    const fixedNav = navbar.classList.contains("fixed-nav");
+    let position = element.offsetTop - navHeight;
+
+    if (!fixedNav) {
+      position = position - navHeight;
+    }
+    if (navHeight > 82) {
+      position = position + containerHeight;
+    }
+
     window.scrollTo({
       left: 0,
       top: position,
     });
-    //close navlinks on smaller screen
+    // close
     linksContainer.style.height = 0;
   });
 });
+// calculate heights
