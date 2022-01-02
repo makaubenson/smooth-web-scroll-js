@@ -15,8 +15,15 @@ const Links = document.querySelector(".links");
 navToggle.addEventListener("click", function () {
   //   linksContainer.classList.toggle("show-links"); method 1
   //method 2
-  const containerHeight = linksContainer.getBoundingClientRect();
-  console.log(containerHeight);
+  const containerHeight = linksContainer.getBoundingClientRect().height;
+  //   console.log(containerHeight);
+  const linksHeight = Links.getBoundingClientRect().height;
+  //   console.log(linksHeight);
+  if (containerHeight === 0) {
+    linksContainer.style.height = `${linksHeight}px`;
+  } else {
+    linksContainer.style.height = 0;
+  }
 });
 // ********** fixed navbar ************
 
