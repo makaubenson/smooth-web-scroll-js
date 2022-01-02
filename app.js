@@ -28,14 +28,15 @@ navToggle.addEventListener("click", function () {
 // ********** fixed navbar ************
 const navbar = document.getElementById("nav");
 const topLink = document.querySelector(".top-link");
+
+////////////////#############################################////////////////////
+// The read-only Window property pageYOffset is an alias for scrollY;
+//  as such, it returns the number of pixels the document is currently
+//  scrolled along the vertical axis (that is, up or down) with a value of 0.0,
+//  indicating that the top edge of the Document is currently aligned
+//  with the top edge of the window's content area.
+////////////////#############################################////////////////////
 window.addEventListener("scroll", function () {
-  ////////////////#############################################////////////////////
-  // The read-only Window property pageYOffset is an alias for scrollY;
-  //  as such, it returns the number of pixels the document is currently
-  //  scrolled along the vertical axis (that is, up or down) with a value of 0.0,
-  //  indicating that the top edge of the Document is currently aligned
-  //  with the top edge of the window's content area.
-  ////////////////#############################################////////////////////
   //   console.log(window.pageYOffset);
   const scrollHeight = window.pageYOffset;
   const navHeight = navbar.getBoundingClientRect().height;
@@ -53,3 +54,24 @@ window.addEventListener("scroll", function () {
 });
 // ********** smooth scroll ************
 // select links
+const scrollLinks = document.querySelectorAll(".scroll-link");
+scrollLinks.forEach(function (link) {
+  link.addEventListener("click", function (e) {
+    //prevent default
+    e.preventDefault();
+    // scroll to specific spot
+    const id = e.currentTarget.getAttribute("href").slice(1);
+    //The slice() method extracts a section of a string and returns it as a new string, without modifying the original string.
+    // alert(`${id}`); //testing
+    const element = document.getElementById(id);
+    // console.log(element);
+    const position = element.offsetTop;
+    // console.log(position);
+    window.scrollTo({
+      left: 0,
+      top: position,
+    });
+    //close navlinks on smaller screen
+    linksContainer.style.height = 0;
+  });
+});
